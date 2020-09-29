@@ -4,7 +4,7 @@
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>关于 | Haymax research hub</title>
+<title>从win10开始配置ubuntu18.04双系统+pytorch-gpu深度学习环境 | Haymax research hub</title>
 
 <link rel="shortcut icon" href="https://tonywangziteng.github.io/favicon.ico?v=1601376141959">
 
@@ -89,29 +89,63 @@
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    关于
+                    从win10开始配置ubuntu18.04双系统+pytorch-gpu深度学习环境
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
-                        · 2019-01-25 ·
+                        · 2020-09-29 ·
                     </time>
                     
                 </div>
                 <div class="post-content">
-                    <blockquote>
-<p>欢迎来到我的小站呀，很高兴遇见你！🤝</p>
-</blockquote>
-<h2 id="关于本站">🏠 关于本站</h2>
-<h2 id="博主是谁">👨‍💻 博主是谁</h2>
-<p>Haymax</p>
-<h2 id="兴趣爱好">⛹ 兴趣爱好</h2>
-<h2 id="联系我呀">📬 联系我呀</h2>
-<p>tonywangziteng@163.com</p>
+                    <p>Author: 王子腾<br>
+<strong>本文整理了从win10开始配置ubuntu18.04双系统，以及Anaconda+Pytorch-gpu环境。本着不重复造轮子的原则，仅引用梳理优秀的现有教程</strong></p>
+<h2 id="总体步骤">总体步骤</h2>
+<ol>
+<li>安装双系统</li>
+<li>更改显卡驱动</li>
+<li>安装anaconda</li>
+<li>安装pytorch</li>
+<li>安装vscode</li>
+</ol>
+<h2 id="安装双系统">安装双系统</h2>
+<p>本文作于2020.09，ubuntu最新版本为20.04，但是由于很多应用没有适配，更加推荐18.04版本。<br>
+推荐教程：</p>
+<p><a href="https://www.cnblogs.com/masbay/p/11627727.html">ubuntu18,04双系统安装教程</a></p>
+<p>需要注意的是，制作系统盘和安装过程，大同小异，但是U盘启动的步骤，不同品牌不同型号的电脑都有差异，请自行百度。</p>
+<h2 id="安装独立显卡驱动-和-cuda">安装独立显卡驱动 和 cuda</h2>
+<p>一般pytorch需要独立显卡加速，当然如果只安装cpu版本，就不用了。<br>
+选择18.04版本的原因，其中之一就是平台本身提供稳定的先打驱动，安装简单，具体安装步骤，请参考该知乎回答的第一种即可：<br>
+<a href="https://zhuanlan.zhihu.com/p/59618999">ubuntu18.04安装nvidia独立显卡驱动</a></p>
+<p>GPU加速还需要nvidia的cuda支持，可以直接从官网安装。目前推荐10.2版本，链接如下，安装直接跟着页面上的教程即可<br>
+<a href="https://developer.nvidia.com/cuda-10.2-download-archive?target_os=Linux&amp;target_arch=x86_64&amp;target_distro=Ubuntu">cuda10.2下载安装</a></p>
+<p>安装之后，在terminal中输入<code>nvidia-smi</code> 可以查看当前的显卡使用信息</p>
+<h2 id="安装anaconda和pytorch">安装anaconda和pytorch</h2>
+<p>anaconda是一个用来管理python环境和包的软件，可以创建彼此独立的虚拟环境，推荐安装。<br>
+安装根据下面的教程即可。推荐使用清华源，国内没有梯子的话直接下载速度可能会很慢。另外就是中间提示加入环境变量最好用yes<br>
+<a href="https://blog.csdn.net/qq_15192373/article/details/81091098">安装anaconda</a><br>
+安装完成之后，打开terminal应该在命令最前面出现<code>(base)</code>，说明安装成功。<br>
+然后推荐使用虚拟环境，命令为<code>conda create -n &lt;env_name&gt; python=&lt;python version&gt;</code>，例如<code>conda create -n torch_env python=3.7</code>，完成后<code>conda activate &lt;env_name&gt;</code> 激活环境。<br>
+具体conda的使用方法参见<a href="https://www.jianshu.com/p/eaee1fadc1e9">anaconda使用教程</a><br>
+激活环境后，即可按照pytorch官网中的命令安装pytorch. 相应链接为<a href="https://www.jianshu.com/p/eaee1fadc1e9">pytorch 安装</a>，推荐使用pip安装，不出意外命令应该是<code>pip install torch torchvision</code>。</p>
+<p>但是直接安装由于GFW的原因，很可能特别慢，可以更换使用清华源进行安装。<br>
+<a href="https://mirror.tuna.tsinghua.edu.cn/help/ubuntu/">清华源官方使用方法</a></p>
+<p>安装之后，在terminal中输入python，在交互环境中<code>import torch</code> ，不报错说明pytorch安装成功，再输入<code>torch.cuda.is_available()</code>，如果输出<code>True</code>说明可以使用gpu。</p>
+<h2 id="vscode">VSCODE</h2>
+<p>编辑器推荐使用vscode，只需要再<a href="https://code.visualstudio.com/">官网</a>中下载，然后安装python插件即可。激活python插件后，在左下角可以选择python interpretor，选择相应的虚拟环境，即可享受完整的代码补全等功能。</p>
+<p>运行代码推荐直接使用terminal运行。</p>
 
                 </div>
             </article>
         </div>
 
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://tonywangziteng.github.io/post/pbrnet/" class="post-title gt-a-link">
+                    PBRNet：Progressive Boundary Refinement Network for Temporal Action Detection
+                </a>
+            </div>
         
 
         
